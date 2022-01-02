@@ -38,6 +38,6 @@ public class User {
 
     private String signDoc;
 
-    @OneToMany(mappedBy = "taskFor")
+    @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 }

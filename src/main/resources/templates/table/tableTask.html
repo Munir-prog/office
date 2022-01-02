@@ -23,46 +23,47 @@
 <div th:if="${not #lists.isEmpty(tasks)}">
     <table>
         <thead>
-        <th>Passenger Number</th>
-        <th>Passenger Name</th>
-        <th>Passenger Last Name</th>
-        <th>Seat Number</th>
-        <th>Ticket Price</th>
+        <th>Tittle h1</th>
+        <th>For</th>
+        <th>Created</th>
+        <th>Done</th>
         </thead>
         <tbody>
         <tr th:each="task : ${tasks}">
             <td>
-                <a th:href="@{/app/ticket/{id}(id=${ticket.id})}">
-                    <span th:text="${ticket.passengerNo}"> Title </span>
+                <a th:href="@{/view/task/{id}(id=${task.id})}">
+                    <span th:text="${task.tittle}"> Title </span>
                 </a>
             </td>
             <td>
-                <a th:href="@{/app/ticket/{id}(id=${ticket.id})}">
-                    <span th:text="${ticket.passengerName}"> Author </span>
+                <a th:href="@{/view/task/{id}(id=${task.id})}">
+                    <span th:text="${task.user.firstName}"> For </span>
                 </a>
             </td>
             <td>
-                <a th:href="@{/app/ticket/{id}(id=${ticket.id})}">
-                    <span th:text="${ticket.passengerLastName}"> Author </span>
+                <a th:href="@{/view/task/{id}(id=${task.id})}">
+                    <span th:text="${task.createdDate}"> Author </span>
                 </a>
             </td>
             <td>
-                <a th:href="@{/app/ticket/{id}(id=${ticket.id})}">
-                    <span th:text="${ticket.seatNo}"> Author </span>
+                <a th:href="@{/view/task/{id}(id=${task.id})}">
+                    <th:block th:switch="${task.doneDate}">
+                        <div th:case="null">
+                            <span>no</span>
+                        </div>
+                        <div th:case="*">
+                            <span>yes</span>
+                        </div>
+                    </th:block>
                 </a>
             </td>
             <td>
-                <a th:href="@{/app/ticket/{id}(id=${ticket.id})}">
-                    <span th:text="${ticket.cost}"> Author </span>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/app/edit/ticket/{id}(id=${ticket.id})}">
+                <a th:href="@{/app/edit/ticket/{id}(id=${task.id})}">
                     <button>Edit</button>
                 </a>
             </td>
             <td>
-                <a th:href="@{/app/delete/ticket/{id}(id=${ticket.id})}">
+                <a th:href="@{/app/delete/ticket/{id}(id=${task.id})}">
                     <button>Delete</button>
                 </a>
             </td>

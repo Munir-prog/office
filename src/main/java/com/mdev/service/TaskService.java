@@ -24,4 +24,8 @@ public class TaskService {
         );
         return user.getTasks();
     }
+
+    public Task getTask(Long id) {
+        return userRepository.findById(ta);
+    }
 }

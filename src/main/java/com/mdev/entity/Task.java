@@ -27,6 +27,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String tittle;
+
+    private String message;
+
     private String createBy;
 
     private LocalDate createdDate;
@@ -35,7 +39,8 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User taskFor;
+//    Task for somebody
+    private User user;
 
     @OneToMany(mappedBy = "task")
     private List<Document> documents;
