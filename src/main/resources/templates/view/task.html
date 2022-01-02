@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+</head>
+<body>
+<div class="container">
+    <h3 class="center">Tittle: <span th:text="${task.tittle}"> Title </span></h3>
+    <div>
+        <p>Create by: <span th:text="${task.createBy}"> Author </span></p>
+        <p>Message: <span th:text="${task.message}"> message </span></p>
+    </div>
+    <p>Task for: <span th:text="${task.user.firstName}"> user </span></p>
+    <div>
+        <span th:text="${task.createdDate}"> createDate </span>
+        <a>
+            <th:block th:switch="${task.doneDate}">
+                <div th:case="null">
+                    <span>Done: NO</span>
+                </div>
+                <div th:case="*">
+                    <span>Done: YES</span><br>
+                    Date: <span th:text="${task.doneDate}">Done: YES</span>
+                </div>
+            </th:block>
+        </a>
+
+
+    </div>
+</div>
+</body>
+</html>
