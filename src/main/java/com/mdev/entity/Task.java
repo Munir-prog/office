@@ -11,12 +11,12 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(exclude = {
-        "documents",
-        "taskFor"
+        "document",
+        "user"
 })
 @ToString(exclude = {
-        "documents",
-        "taskFor"
+        "document",
+        "user"
 })
 @Builder
 @Entity
@@ -42,6 +42,9 @@ public class Task {
 //    Task for somebody
     private User user;
 
-    @OneToMany(mappedBy = "task")
-    private List<Document> documents;
+    @OneToOne(
+            mappedBy = "task",
+            cascade = CascadeType.ALL
+    )
+    private Document document;
 }

@@ -40,4 +40,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
+
+    public void addTask(Task task){
+        tasks.add(task);
+        task.setUser(this);
+    }
 }

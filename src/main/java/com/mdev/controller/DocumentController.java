@@ -8,9 +8,8 @@ import com.mdev.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,5 +34,26 @@ public class DocumentController {
         Document document = documentService.getDocument(id);
         model.addAttribute("document", document);
         return "view/document";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editTask(@PathVariable Long id, Model model){
+        if (id != 0){
+            model.addAttribute("taskId", id);
+            var document = new Document();
+            document.setTask(taskService.getTask(id));
+            model.addAttribute("document", document);
+
+        } else {
+//            TODO it maybe unnecessary
+            model.addAttribute("task", new Task());
+        }
+        return "edit/editDocument";
+    }
+
+    @PostMapping("/save")
+    public String saveTask(@RequestParam("file") MultipartFile file, @ModelAttribute Document document){
+        documentService.save(document, file);
+        return "redirect:/document/viewAll";
     }
 }

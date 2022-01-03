@@ -1,8 +1,10 @@
 package com.mdev.service;
 
+import com.mdev.entity.Document;
 import com.mdev.entity.Task;
 import com.mdev.repository.TaskRepository;
 import com.mdev.repository.UserRepository;
+import com.mdev.util.ContextUtil;
 import com.mdev.util.NamesUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,7 +33,7 @@ public class TaskService {
             task.setUser(user);
         }
         if (task.getCreateBy() == null || task.getCreateBy().equals("")){
-            var name = SecurityContextHolder.getContext().getAuthentication().getName();
+            var name = ContextUtil.getAuthorizedUserName();
 
             if (name.startsWith(DIRECTOR)){
                 task.setCreateBy(DIRECTOR);
@@ -48,7 +50,7 @@ public class TaskService {
     }
 
     public List<Task> getTasks() {
-        var name = SecurityContextHolder.getContext().getAuthentication().getName();
+        var name = ContextUtil.getAuthorizedUserName();
         if (name.startsWith(DIRECTOR))
             return taskRepository.findAll();
         else if (name.startsWith(MANAGER))

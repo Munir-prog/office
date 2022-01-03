@@ -2,6 +2,7 @@ package com.mdev.service;
 
 import com.mdev.entity.Task;
 import com.mdev.repository.UserRepository;
+import com.mdev.util.ContextUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +17,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public List<Task> getTasks(){
-        var email = SecurityContextHolder.getContext().getAuthentication().getName();
+        var email = ContextUtil.getAuthorizedUserName();
         var user = userRepository.findByEmail(email).orElseThrow(
                 () -> new UsernameNotFoundException("User not found")
         );

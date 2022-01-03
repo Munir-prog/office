@@ -1,14 +1,14 @@
 package com.mdev.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode(exclude = "task")
+@ToString(exclude = "task")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -30,8 +30,13 @@ public class Document {
 
     private boolean signed;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "task_id")
     private Task task;
+
+    public void setTask(Task task){
+        task.setDocument(this);
+        this.task = task;
+    }
 
 }

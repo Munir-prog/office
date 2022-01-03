@@ -29,7 +29,15 @@
                 </div>
             </th:block>
         </a>
-
+        <th:block th:switch="${task.document}">
+            <div th:case="null">
+                <p>Document: not added</p>
+                <a th:href="@{/document/edit/{id}(id=${task.id})}">Add document</a>
+            </div>
+            <div th:case="*">
+                <p>Document: <a th:href="@{/document/view/{id}(id=${task.document.id})}" >view</a></p>
+            </div>
+        </th:block>
 
     </div>
 </div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Ticket</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+</head>
+<body>
+<div>
+
+    <h2>New Document:</h2>
+    <form action="#" th:action="@{/document/save/{id}(id=${document.id})}" th:object="${document}" method="post" enctype="multipart/form-data">
+        <label>Tittle: <br>
+            <input type="text" th:field="*{tittle}">
+        </label><br>
+        <label>Document file: <br>
+            <input type="file" name="file">
+        </label><br>
+        <input type="hidden" th:field="*{task}">
+        <button type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>
