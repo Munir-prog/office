@@ -2,28 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Task Table</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
 </head>
 <body>
 
 <div>
-    <a href="#" th:href="@{/app/ticket-by-name}">
-        <button> Find ticket by name</button>
+    <a href="#" th:href="@{/task/edit/{id}(id=0)}">
+        <button> Add new Task</button>
     </a>
-    <a href="#" th:href="@{/app/edit/ticket}">
-        <button> Add new Ticket</button>
-    </a>
-    <a href="#" th:href="@{/app/tickets}">
-        <button> All Tickets</button>
+    <a href="#" th:href="@{/task/viewAll}">
+        <button> All Task</button>
     </a>
 </div>
 <div th:if="${#lists.isEmpty(tasks)}">
     <td colspan="2"> No Tickets Available</td>
 </div>
 <div th:if="${not #lists.isEmpty(tasks)}">
-    <table>
+    <table class="table">
         <thead>
-        <th>Tittle h1</th>
+        <th>Tittle</th>
         <th>For</th>
         <th>Created</th>
         <th>Done</th>
@@ -71,6 +72,9 @@
         </tbody>
     </table>
 </div>
+
+<div th:insert="~{footer :: mainPage}"></div>
+
 
 </body>
 </html>

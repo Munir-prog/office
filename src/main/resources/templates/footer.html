@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <div th:fragment="mainPage" class="footer">
+    <a th:href="@{/}"><button>main</button></a>
+    <form action="/auth/logout" method="post">
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+</body>
+</html>

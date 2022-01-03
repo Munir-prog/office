@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Ticket</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+</head>
+<body>
+<div>
+
+    <h2>New Task:</h2>
+    <form action="#" th:action="@{/task/save/{id}(id=${task.id})}" th:object="${task}" method="post">
+        <label>Tittle: <br>
+            <input type="text" th:field="*{tittle}">
+        </label><br>
+        <label>Message: <br>
+            <input type="text" th:field="*{message}">
+        </label><br>
+        <label>Task for: <br>
+            <select th:field="*{user.id}">
+                <option value="1" >ДИРЕКТОР</option>
+                <option value="2" >ГЛАВА ОТДЕЛА</option>
+                <option value="3" >СПЕЦИАЛИСТ ОТДЕЛА</option>
+            </select>
+        </label><br>
+        <button type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>

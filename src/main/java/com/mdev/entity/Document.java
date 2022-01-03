@@ -28,6 +28,7 @@ public class Document {
 
     private String pathToFile;
 
+    private boolean signed;
 
     @ManyToOne
     @JoinColumn(name = "task_id")
