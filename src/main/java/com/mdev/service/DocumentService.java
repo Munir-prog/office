@@ -5,6 +5,7 @@ import com.mdev.entity.Task;
 import com.mdev.repository.TaskRepository;
 import com.mdev.util.ContextUtil;
 import com.mdev.util.NamesUtil;
+import com.mdev.util.PathUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,13 +50,13 @@ public class DocumentService {
         saveFileToStaticFolder(file);
         document.setCreatedDate(LocalDate.now());
         document.setTheme(document.getTittle());
-        document.setPathToFile("document/" + file.getOriginalFilename());
+        document.setPathToFile(file.getOriginalFilename());
         documentRepository.save(document);
     }
 
     @SneakyThrows
     public void saveFileToStaticFolder(MultipartFile file) {
-        var path = Path.of("src", "main", "resources", "static", "document", file.getOriginalFilename()).toFile();
+        var path = Path.of(PathUtil.PATH_TO_DOCS, file.getOriginalFilename()).toFile();
         Files.copy(file.getInputStream(), path.toPath());
     }
 }

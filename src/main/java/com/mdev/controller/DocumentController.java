@@ -5,12 +5,22 @@ import com.mdev.entity.Task;
 import com.mdev.service.DocumentService;
 import com.mdev.service.TaskService;
 import com.mdev.service.UserService;
+import com.mdev.util.PathUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 @Controller
@@ -55,5 +65,19 @@ public class DocumentController {
     public String saveTask(@RequestParam("file") MultipartFile file, @ModelAttribute Document document){
         documentService.save(document, file);
         return "redirect:/document/viewAll";
+    }
+
+
+    @SneakyThrows
+    @GetMapping("/download/{id}")
+    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable Long id){
+        var document = documentService.getDocument(id);
+        var file = new File(PathUtil.PATH_TO_DOCS + document.getPathToFile());
+        var inputStreamResource = new InputStreamResource(new FileInputStream(file));
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + document.getPathToFile())
+                .contentType(MediaType.TEXT_PLAIN)
+                .contentLength(file.length())
+                .body(inputStreamResource);
     }
 }

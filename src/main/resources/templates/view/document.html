@@ -19,6 +19,7 @@
         <span th:text="${document.createdDate}"> createDate </span>
     </div>
     <p>Document for task: <a th:href="@{/task/view/{id}(id=${document.task.id})}"><span th:text="${document.task.tittle}">tittle</span></a></p>
+    <a th:href="@{/document/download/{id}(id=${document.id})}">Download document</a>
 </div>
 <div th:insert="~{footer :: mainPage}"></div>
 </body>
