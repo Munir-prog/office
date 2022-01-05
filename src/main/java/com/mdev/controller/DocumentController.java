@@ -47,7 +47,7 @@ public class DocumentController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editTask(@PathVariable Long id, Model model){
+    public String editDocument(@PathVariable Long id, Model model){
         if (id != 0){
             model.addAttribute("taskId", id);
             var document = new Document();
@@ -61,9 +61,21 @@ public class DocumentController {
         return "edit/editDocument";
     }
 
-    @PostMapping("/save")
-    public String saveTask(@RequestParam("file") MultipartFile file, @ModelAttribute Document document){
-        documentService.save(document, file);
+    @GetMapping("/edited/{id}")
+    public String editedDocument(@PathVariable Long id, Model model){
+        if (id != 0){
+            var document = documentService.getDocument(id);
+            model.addAttribute("document", document);
+        }
+        return "edit/editDocument";
+    }
+
+    @PostMapping(value = {
+            "/save/{id}",
+            "/save"
+    })
+    public String saveDocument(@PathVariable(required = false) Long id, @RequestParam("file") MultipartFile file, @ModelAttribute Document document){
+        documentService.save(document, file, id);
         return "redirect:/document/viewAll";
     }
 
@@ -79,5 +91,13 @@ public class DocumentController {
                 .contentType(MediaType.TEXT_PLAIN)
                 .contentLength(file.length())
                 .body(inputStreamResource);
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteDoc(@PathVariable Long id){
+        if (id != 0){
+            documentService.delete(id);
+        }
+        return "redirect:/document/viewAll";
     }
 }

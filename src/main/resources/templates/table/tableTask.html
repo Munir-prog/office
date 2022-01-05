@@ -18,6 +18,7 @@
         <button> All Task</button>
     </a>
 </div>
+<h1 th:text ="${#authentication.getName()}">aaaaa</h1>
 <div th:if="${#lists.isEmpty(tasks)}">
     <td colspan="2"> No Tickets Available</td>
 </div>
@@ -58,16 +59,18 @@
                     </th:block>
                 </a>
             </td>
-            <td>
-                <a th:href="@{/app/edit/ticket/{id}(id=${task.id})}">
-                    <button>Edit</button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/app/delete/ticket/{id}(id=${task.id})}">
-                    <button>Delete</button>
-                </a>
-            </td>
+            <th:block th:if="${#authentication.getName().equals('director@mail.ru')}">
+                <td>
+                    <a th:href="@{/task/edit/{id}(id=${task.id})}">
+                        <button>Edit</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/task/delete/{id}(id=${task.id})}">
+                        <button>Delete</button>
+                    </a>
+                </td>
+            </th:block>
         </tr>
         </tbody>
     </table>

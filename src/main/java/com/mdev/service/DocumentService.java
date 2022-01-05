@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static com.mdev.util.NamesUtil.*;
 
@@ -31,6 +32,7 @@ public class DocumentService {
 
     private final Path root = Paths.get("document");
     private final DocumentRepository documentRepository;
+    private final TaskRepository taskRepository;
 
     public Document getDocument(Long id) {
         return documentRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Task not found"));
@@ -46,17 +48,41 @@ public class DocumentService {
             return documentRepository.findDocsForSpecialist();
     }
 
-    public void save(Document document, MultipartFile file) {
+    public void save(Document document, MultipartFile file, Long id) {
         saveFileToStaticFolder(file);
+        if (id == null || id == 0) {
+            saveDocument(document, file);
+        } else {
+            updateDocument(document, file, id);
+        }
+    }
+
+    private void updateDocument(Document document, MultipartFile file, Long id) {
+        var doc = documentRepository.findById(id).get();
+        doc.setTittle(document.getTittle());
+        doc.setTheme(document.getTittle());
+        doc.setPathToFile(file.getOriginalFilename());
+        var task = taskRepository.findById(doc.getTask().getId()).get();
+        task.setDocument(doc);
+        taskRepository.save(task);
+    }
+
+    private void saveDocument(Document document, MultipartFile file) {
         document.setCreatedDate(LocalDate.now());
         document.setTheme(document.getTittle());
         document.setPathToFile(file.getOriginalFilename());
         documentRepository.save(document);
     }
 
+
     @SneakyThrows
     public void saveFileToStaticFolder(MultipartFile file) {
         var path = Path.of(PathUtil.PATH_TO_DOCS, file.getOriginalFilename()).toFile();
-        Files.copy(file.getInputStream(), path.toPath());
+        if (!path.exists())
+            Files.copy(file.getInputStream(), path.toPath());
+    }
+
+    public void delete(Long id) {
+        documentRepository.deleteById(id);
     }
 }

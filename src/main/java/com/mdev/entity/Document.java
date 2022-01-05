@@ -30,7 +30,7 @@ public class Document {
 
     private boolean signed;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private Task task;
 

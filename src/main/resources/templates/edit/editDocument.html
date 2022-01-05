@@ -13,6 +13,8 @@
 
     <h2>New Document:</h2>
     <form action="#" th:action="@{/document/save/{id}(id=${document.id})}" th:object="${document}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{theme}">
+        <input type="hidden" th:field="*{createdDate}">
         <label>Tittle: <br>
             <input type="text" th:field="*{tittle}">
         </label><br>

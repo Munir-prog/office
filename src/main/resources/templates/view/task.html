@@ -39,6 +39,13 @@
             </div>
         </th:block>
 
+        <a th:href="@{/task/edit/{id}(id=${task.id})}">
+            <button>Edit</button>
+        </a>
+        <a th:href="@{/task/delete/{id}(id=${task.id})}">
+            <button>Delete</button>
+        </a>
+
     </div>
 </div>
 <div th:insert="~{footer :: mainPage}"></div>

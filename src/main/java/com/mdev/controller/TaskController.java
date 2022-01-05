@@ -44,9 +44,20 @@ public class TaskController {
         return "edit/editTask";
     }
 
-    @PostMapping("/save")
-    public String saveTask(@ModelAttribute Task task){
-        taskService.save(task);
+    @PostMapping(value = {
+            "/save/{id}",
+            "/save"
+    })
+    public String saveTask(@PathVariable(required = false) Long id, @ModelAttribute Task task){
+        taskService.save(task, id);
+        return "redirect:/task/viewAll";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteTask(@PathVariable Long id){
+        if (id != 0){
+            taskService.delete(id);
+        }
         return "redirect:/task/viewAll";
     }
 }
