@@ -18,7 +18,6 @@
         <button> All Task</button>
     </a>
 </div>
-<h1 th:text ="${#authentication.getName()}">aaaaa</h1>
 <div th:if="${#lists.isEmpty(tasks)}">
     <td colspan="2"> No Tickets Available</td>
 </div>
@@ -49,14 +48,19 @@
             </td>
             <td>
                 <a th:href="@{/task/view/{id}(id=${task.id})}">
-                    <th:block th:switch="${task.doneDate}">
-                        <div th:case="null">
-                            <span>no</span>
-                        </div>
-                        <div th:case="*">
-                            <span>yes</span>
-                        </div>
-                    </th:block>
+                    <div th:if="${task.canceled}">
+                        <span>canceled</span>
+                    </div>
+                    <div th:if="${!task.canceled}">
+                        <th:block th:switch="${task.doneDate}">
+                            <div th:case="null">
+                                <span>no</span>
+                            </div>
+                            <div th:case="*">
+                                <span>yes</span>
+                            </div>
+                        </th:block>
+                    </div>
                 </a>
             </td>
             <th:block th:if="${#authentication.getName().equals('director@mail.ru')}">

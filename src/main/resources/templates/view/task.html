@@ -38,13 +38,21 @@
                 <p>Document: <a th:href="@{/document/view/{id}(id=${task.document.id})}" >view</a></p>
             </div>
         </th:block>
-
-        <a th:href="@{/task/edit/{id}(id=${task.id})}">
-            <button>Edit</button>
-        </a>
-        <a th:href="@{/task/delete/{id}(id=${task.id})}">
-            <button>Delete</button>
-        </a>
+        <th:block th:if="${#authentication.getName().equals('director@mail.ru')}">
+            <a th:href="@{/task/edit/{id}(id=${task.id})}">
+                <button>Edit</button>
+            </a>
+            <a th:href="@{/task/delete/{id}(id=${task.id})}">
+                <button>Delete</button>
+            </a>
+        </th:block>
+        <span th:if="${task.doneDate == null}">
+            <span th:if="${!task.canceled}">
+                <a th:href="@{/task/cancel/{id}(id=${task.id})}">
+                    <button>Cancel task</button>
+                </a>
+            </span>
+        </span>
 
     </div>
 </div>

@@ -60,4 +60,12 @@ public class TaskController {
         }
         return "redirect:/task/viewAll";
     }
+
+    @GetMapping("/cancel/{id}")
+    public String cancelTask(@PathVariable Long id){
+        if (id != 0){
+            taskService.cancel(id);
+        }
+        return "redirect:/task/viewAll";
+    }
 }

@@ -85,4 +85,11 @@ public class DocumentService {
     public void delete(Long id) {
         documentRepository.deleteById(id);
     }
+
+    public void signDoc(Long id) {
+        var document = documentRepository.findById(id).get();
+        document.setSigned(true);
+        document.getTask().setDoneDate(LocalDate.now());
+        documentRepository.save(document);
+    }
 }

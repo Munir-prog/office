@@ -100,4 +100,12 @@ public class DocumentController {
         }
         return "redirect:/document/viewAll";
     }
+
+    @GetMapping("/sign/{id}")
+    public String signDoc(@PathVariable Long id){
+        if (id != null && id != 0) {
+            documentService.signDoc(id);
+        }
+        return "redirect:/document/view/" + id;
+    }
 }

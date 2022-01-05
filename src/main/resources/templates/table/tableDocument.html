@@ -42,16 +42,18 @@
                     <span th:text="${document.createdDate}"> createdDate </span>
                 </a>
             </td>
-            <td>
-                <a th:href="@{/document/edited/{id}(id=${document.id})}">
-                    <button>Edit</button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/document/delete/{id}(id=${document.id})}">
-                    <button>Delete</button>
-                </a>
-            </td>
+            <th:block th:if="${#authentication.getName().equals('director@mail.ru')}">
+                <td>
+                    <a th:href="@{/document/edited/{id}(id=${document.id})}">
+                        <button>Edit</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/document/delete/{id}(id=${document.id})}">
+                        <button>Delete</button>
+                    </a>
+                </td>
+            </th:block>
         </tr>
         </tbody>
     </table>

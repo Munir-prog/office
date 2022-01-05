@@ -37,6 +37,9 @@ public class Task {
 
     private LocalDate doneDate;
 
+    @Column(nullable = true)
+    private boolean canceled;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
 //    Task for somebody

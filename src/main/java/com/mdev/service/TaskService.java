@@ -82,4 +82,10 @@ public class TaskService {
     public void delete(Long id) {
         taskRepository.deleteById(id);
     }
+
+    public void cancel(Long id) {
+        var task = taskRepository.findById(id).get();
+        task.setCanceled(true);
+        taskRepository.save(task);
+    }
 }
