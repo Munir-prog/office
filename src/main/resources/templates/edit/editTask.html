@@ -11,22 +11,22 @@
 <body>
 <div>
 
-    <h2>New Task:</h2>
+    <h2>Поручение</h2>
     <form action="#" th:action="@{/task/save/{id}(id=${task.id})}" th:object="${task}" method="post">
-        <label>Tittle: <br>
+        <label>Заголовок: <br>
             <input type="text" th:field="*{tittle}">
         </label><br>
-        <label>Message: <br>
+        <label>Сообщение: <br>
             <input type="text" th:field="*{message}">
         </label><br>
-        <label>Task for: <br>
+        <label>Поручение для: <br>
             <select th:field="*{user.id}">
                 <option value="1" >ДИРЕКТОР</option>
                 <option value="2" >ГЛАВА ОТДЕЛА</option>
                 <option value="3" >СПЕЦИАЛИСТ ОТДЕЛА</option>
             </select>
         </label><br>
-        <button type="submit">Save</button>
+        <button type="submit">Сохранить</button>
     </form>
 </div>
 </body>

@@ -10,46 +10,46 @@
 </head>
 <body>
 <div class="container">
-    <h3 class="center">Tittle: <span th:text="${task.tittle}"> Title </span></h3>
+    <h3 class="center">Заголовок: <span th:text="${task.tittle}"> Title </span></h3>
     <div>
-        <p>Create by: <span th:text="${task.createBy}"> Author </span></p>
-        <p>Message: <span th:text="${task.message}"> message </span></p>
+        <p>Создал поручение: <span th:text="${task.createBy}"> Author </span></p>
+        <p>Сообщение поручения: <span th:text="${task.message}"> message </span></p>
     </div>
-    <p>Task for: <span th:text="${task.user.firstName}"> user </span></p>
+    <p>Поручение для: <span th:text="${task.user.firstName}"> user </span></p>
     <div>
         <span th:text="${task.createdDate}"> createDate </span>
         <a>
             <th:block th:switch="${task.doneDate}">
                 <div th:case="null">
-                    <span>Done: NO</span>
+                    <span>Не сделано</span>
                 </div>
                 <div th:case="*">
-                    <span>Done: YES</span><br>
-                    Date: <span th:text="${task.doneDate}">Done: YES</span>
+                    <span>Сделано</span><br>
+                    Дата: <span th:text="${task.doneDate}">Done: YES</span>
                 </div>
             </th:block>
         </a>
         <th:block th:switch="${task.document}">
             <div th:case="null">
-                <p>Document: not added</p>
-                <a th:href="@{/document/edit/{id}(id=${task.id})}">Add document</a>
+                <p>Документ: не добавлен</p>
+                <a th:href="@{/document/edit/{id}(id=${task.id})}">Добавить документ</a>
             </div>
             <div th:case="*">
-                <p>Document: <a th:href="@{/document/view/{id}(id=${task.document.id})}" >view</a></p>
+                <p>Документ: <a th:href="@{/document/view/{id}(id=${task.document.id})}" >посмотреть</a></p>
             </div>
         </th:block>
         <th:block th:if="${#authentication.getName().equals('director@mail.ru')}">
             <a th:href="@{/task/edit/{id}(id=${task.id})}">
-                <button>Edit</button>
+                <button>Редактировать</button>
             </a>
             <a th:href="@{/task/delete/{id}(id=${task.id})}">
-                <button>Delete</button>
+                <button>Удалить</button>
             </a>
         </th:block>
         <span th:if="${task.doneDate == null}">
             <span th:if="${!task.canceled}">
                 <a th:href="@{/task/cancel/{id}(id=${task.id})}">
-                    <button>Cancel task</button>
+                    <button>Отменить поручение</button>
                 </a>
             </span>
         </span>

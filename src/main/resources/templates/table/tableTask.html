@@ -12,22 +12,22 @@
 
 <div>
     <a href="#" th:href="@{/task/edit/{id}(id=0)}">
-        <button> Add new Task</button>
+        <button>Создать новое поручение</button>
     </a>
     <a href="#" th:href="@{/task/viewAll}">
-        <button> All Task</button>
+        <button>Все поручения</button>
     </a>
 </div>
 <div th:if="${#lists.isEmpty(tasks)}">
-    <td colspan="2"> No Tickets Available</td>
+    <td colspan="2">Нет поручений</td>
 </div>
 <div th:if="${not #lists.isEmpty(tasks)}">
     <table class="table">
         <thead>
-        <th>Tittle</th>
-        <th>For</th>
-        <th>Created</th>
-        <th>Done</th>
+        <th>Заголовок</th>
+        <th>Для</th>
+        <th>Создано</th>
+        <th>Сделано</th>
         </thead>
         <tbody>
         <tr th:each="task : ${tasks}">
@@ -49,15 +49,15 @@
             <td>
                 <a th:href="@{/task/view/{id}(id=${task.id})}">
                     <div th:if="${task.canceled}">
-                        <span>canceled</span>
+                        <span>отменено</span>
                     </div>
                     <div th:if="${!task.canceled}">
                         <th:block th:switch="${task.doneDate}">
                             <div th:case="null">
-                                <span>no</span>
+                                <span>нет</span>
                             </div>
                             <div th:case="*">
-                                <span>yes</span>
+                                <span>да</span>
                             </div>
                         </th:block>
                     </div>
@@ -66,12 +66,12 @@
             <th:block th:if="${#authentication.getName().equals('director@mail.ru')}">
                 <td>
                     <a th:href="@{/task/edit/{id}(id=${task.id})}">
-                        <button>Edit</button>
+                        <button>Редактировать</button>
                     </a>
                 </td>
                 <td>
                     <a th:href="@{/task/delete/{id}(id=${task.id})}">
-                        <button>Delete</button>
+                        <button>Удалить</button>
                     </a>
                 </td>
             </th:block>

@@ -10,19 +10,19 @@
 </head>
 <body>
 <div class="container">
-    <h3 class="center">Tittle: <span th:text="${document.tittle}"> Title </span></h3>
+    <h3 class="center">Заголовок: <span th:text="${document.tittle}"> Title </span></h3>
     <div>
-        <p>Theme: <span th:text="${document.theme}"> Author </span></p>
+        <p>Тема: <span th:text="${document.theme}"> Author </span></p>
     </div>
     <div>
         <span th:text="${document.createdDate}"> createDate </span>
     </div>
-    <p>Document for task: <a th:href="@{/task/view/{id}(id=${document.task.id})}"><span th:text="${document.task.tittle}">tittle</span></a></p>
-    <p th:if="${document.signed}"><span>Document signed</span></p>
-    <a th:href="@{/document/download/{id}(id=${document.id})}">Download document</a><br>
+    <p>Документ для задачи: <a th:href="@{/task/view/{id}(id=${document.task.id})}"><span th:text="${document.task.tittle}">tittle</span></a></p>
+    <p th:if="${document.signed}"><span>Документ подписан</span></p>
+    <a th:href="@{/document/download/{id}(id=${document.id})}">Скачать документ</a><br>
     <th:block th:if="${!document.signed}">
         <a th:href="@{/document/sign/{id}(id=${document.id})}">
-            <button>Sing document</button>
+            <button>Подписать документ</button>
         </a>
     </th:block>
 </div>

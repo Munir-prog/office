@@ -50,11 +50,21 @@ public class DocumentService {
 
     public void save(Document document, MultipartFile file, Long id) {
         saveFileToStaticFolder(file);
-        if (id == null || id == 0) {
-            saveDocument(document, file);
-        } else {
-            updateDocument(document, file, id);
+        if (isNameStartWithUpperCase(document.getTittle())) {
+            if (id == null || id == 0) {
+                saveDocument(document, file);
+            } else {
+                updateDocument(document, file, id);
+            }
         }
+    }
+
+    protected boolean isNameStartWithUpperCase(String tittle) {
+        String firstChar = tittle.charAt(0) + "";
+        var upperCase = firstChar.toUpperCase();
+        if (!firstChar.equals(upperCase))
+            throw new IllegalArgumentException("the first letter isn't in uppercase");
+        return true;
     }
 
     private void updateDocument(Document document, MultipartFile file, Long id) {

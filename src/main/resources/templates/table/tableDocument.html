@@ -12,18 +12,18 @@
 
 <div>
     <a href="#" th:href="@{/document/viewAll}">
-        <button> All Document</button>
+        <button>Все документы</button>
     </a>
 </div>
 <div th:if="${#lists.isEmpty(documents)}">
-    <td colspan="2"> No Documents Available</td>
+    <td colspan="2">Нет документов</td>
 </div>
 <div th:if="${not #lists.isEmpty(documents)}">
     <table class="table">
         <thead>
-        <th>Tittle</th>
-        <th>Theme</th>
-        <th>Created</th>
+        <th>Заголовок</th>
+        <th>Тема</th>
+        <th>Создано</th>
         </thead>
         <tbody>
         <tr th:each="document : ${documents}">
@@ -45,12 +45,12 @@
             <th:block th:if="${#authentication.getName().equals('director@mail.ru')}">
                 <td>
                     <a th:href="@{/document/edited/{id}(id=${document.id})}">
-                        <button>Edit</button>
+                        <button>Редактировать</button>
                     </a>
                 </td>
                 <td>
                     <a th:href="@{/document/delete/{id}(id=${document.id})}">
-                        <button>Delete</button>
+                        <button>Удалить</button>
                     </a>
                 </td>
             </th:block>
